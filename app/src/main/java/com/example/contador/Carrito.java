@@ -2,22 +2,34 @@ package com.example.contador;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Carrito extends AppCompatActivity {
-    BigInteger num;
-    BigInteger valorClick = new BigInteger("1");
-    BigInteger incAuto = new BigInteger("0");
-    int tiempoAutoClick = 2000;
-    private int costeBillete = 100;
-    private int costeOro = 250;
-    private boolean autoClickEnabled = false;
-    private long autoClickDelay;
+    int num;
+    int inc = 0;
+    int incAuto = 0;
+    int tiempoAutoClick = 0;
+    int costeBillete = 100;
+    int costeOro = 250;
+    int costePlata = 500;
+    int costeTesoro = 1000;
+    int contadorbilletes = 0;
+    int contadororo = 0;
+    int contadorplata = 0;
+    int contadortesoro = 0;
+    boolean autoClickEnabled = false;
+
 
     TextView textValorClick;
     TextView textValorAutoClick;
@@ -28,58 +40,112 @@ public class Carrito extends AppCompatActivity {
     TextView textContPlata;
     TextView textContTesoro;
     private Button botonMejora1, botonMejora2;
-
+    private ExecutorService executor; // Para ejecutar la pulsación automática en segundo plano
+    private Handler handler; // Para realizar operaciones en el hilo principal (UI Thread)
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrito);
+        textMonedasContador = (TextView) findViewById(R.id.textMonedasContador);
+        executor = Executors.newSingleThreadExecutor(); // Inicializa el ExecutorService para tareas en segundo plano
+        handler = new Handler(Looper.getMainLooper()); // Inicializa el Handler para operaciones en el hilo principal (UI Thread)
+        botonMejora1 = findViewById(R.id.boton_billetes);
+        botonMejora2 = findViewById(R.id.boton_oro);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            num = extras.getInt("MONEY_COUNT");
+            inc = extras.getInt("CLICK_VALUE");
+            incAuto = extras.getInt("AUTOCLICK_VALUE");
+            tiempoAutoClick = extras.getInt("AUTOCLICK_TIME");
+        }
+        textValorClick=(TextView)findViewById(R.id.textValorClick);
+        textValorAutoClick=(TextView) findViewById(R.id.textValorAutoClick);
+        textVelocidadAutoClick=(TextView) findViewById(R.id.textVelocidadAutoClick);
+        textMonedasContador=(TextView) findViewById(R.id.textMonedasContador);
+        setContText();
     }
-    public void volverJuego(View v) {
+
+    public void volverAlJuego(View v) {
         Intent i = new Intent(this, MainActivity.class);
-        i.putExtra("MONEY_COUNT", num.toString());
-        i.putExtra("CLICK_VALUE", inc.toString());
-        i.putExtra("AUTOCLICK_VALUE", incAuto.toString());
+        i.putExtra("MONEY_COUNT", num);
+        i.putExtra("CLICK_VALUE", inc);
+        i.putExtra("AUTOCLICK_VALUE", incAuto);
         i.putExtra("AUTOCLICK_TIME", tiempoAutoClick);
         startActivity(i);
     }
 
     public void setContText() {
-        textValorClick.setText("Click: " + inc.toString());
-        textValorAutoClick.setText("Autoclick: " + incAuto.toString());
-        textVelocidadAutoClick.setText("Velocidad Autoclick: " + tiempoAutoClick + "m" + "s");
+        textValorClick.setText("Clicks: " + inc);
+        textValorAutoClick.setText("Autoclicks: " + incAuto);
+        textVelocidadAutoClick.setText("Velocidad Autoclicks: " + tiempoAutoClick + "m" + "s");
 
-        textMonedasContador.setText(num.toString());
+        textMonedasContador.setText(formatNumber(num));
+    }
 
+    private String formatNumber(int value) {
+        if (value < 1000) {
+            return String.valueOf(value);
+        } else if (value < 1000000) {
+            return new DecimalFormat("0.00K").format(value / 1000.0);
+        } else if (value < 1000000000) {
+            return new DecimalFormat("0.00M").format(value / 1000000.0);
+        } else {
+            return new DecimalFormat("0.00B").format(value / 1000000000.0);
+        }
+    }
 
+    private void updateCounter() {
+        textMonedasContador.setText(formatNumber(num));
+    }
+
+    public void sumar(View v) {
+        num += inc;
+        updateCounter();
     }
 
     public void mejora1(View v) {
         if (num >= costeBillete) {
             num -= costeBillete;
-            valorClick++;
+            inc++;
+            contadorbilletes++;
             updateCounter();
             costeBillete += 20;
             botonMejora1.setText("Comprar por " + costeBillete + " coins");
-
-
+        }
+    }
+    public void mejora2(View v) {
+        if (num >= costeOro) {
+            num -= costeOro;
+            inc += 5;
+            updateCounter();
+            costeOro += 200;
+            botonMejora2.setText("Comprar por " + costeOro + " coins");
         }
     }
 
-    public void sumarAuto() {
-        new Thread(() -> {
-            while (true) {
-                num = num.add(incAuto);
-                runOnUiThread(this::setContText);
-                try {
-                    Thread.sleep(tiempoAutoClick);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+            public void mejora3 (View v){
+                if (num >= costePlata) {
+                    num -= costePlata;
+                    inc++;
+                    contadorplata++;
+                    updateCounter();
+                    costePlata += 100;
+                    botonMejora2.setText("Comprar por" + costePlata + " coins");
+                    if (!autoClickEnabled) {
+                        autoClickEnabled = true; // Habilita la pulsación automática
+                        tiempoAutoClick = 2000;
+                        startAutoClick(); //
+                    } else {
+                        tiempoAutoClick -= 100; // Con cada mejora el click automático será 0.1 segundos mas rápido
+                        if (tiempoAutoClick < 100) {
+                            tiempoAutoClick = 100; // Fijo que todo lo rápido que serán los click automaticos sea 0.1 segundos
+                        }
+                    }
                 }
             }
-        }).start();
-    }
+
 
     private void startAutoClick() {
         // Ejecuta esta tarea en un hilo secundario (en segundo plano)
@@ -88,7 +154,7 @@ public class Carrito extends AppCompatActivity {
             while (autoClickEnabled) {
                 try {
                     // Pausa el hilo durante un período de tiempo determinado (autoClickDelay) en milisegundos
-                    Thread.sleep(autoClickDelay);
+                    Thread.sleep(tiempoAutoClick);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -106,22 +172,4 @@ public class Carrito extends AppCompatActivity {
         });
     }
 
-    public void incrementarAuto(View v) {
-        if (!autoClickEnabled) {
-            autoClickEnabled = true; // Habilita la pulsación automática
-            autoClickDelay = 2000; // Establece que el click inicial automático sea cada 2 segundos
-            startAutoClick(); //
-        } else {
-            autoClickDelay -= 100; // Con cada mejora el click automático será 0.1 segundos mas rápido
-            if (autoClickDelay < 100) {
-                autoClickDelay = 100; // Fijo que todo lo rápido que serán los click automaticos sea 0.1 segundos
-            }
-        }
-        if (num.longValue() >= 200) {
-
-            incAuto = incAuto.add(BigInteger.valueOf(1));
-            num = num.subtract(BigInteger.valueOf(200));
-            setContText();
-        }
-    }
 }

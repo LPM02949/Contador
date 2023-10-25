@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/datosJuego">
 
         <TextView
-            android:id="@+id/txtMonedas"
+            android:id="@+id/textMonedas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Moneditas: " />
@@ -124,7 +124,7 @@
     <LinearLayout
         android:id="@+id/lineaBilletes"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="130dp"
         android:background="#92EFEF"
         android:gravity="center"
         android:orientation="horizontal"
@@ -179,7 +179,7 @@
     <LinearLayout
         android:id="@+id/lineaOro"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="130dp"
         android:background="#92EFEF"
         android:gravity="center"
         android:orientation="horizontal"
@@ -234,7 +234,7 @@
     <LinearLayout
         android:id="@+id/lineaPlata"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="130dp"
         android:background="#92EFEF"
         android:gravity="center"
         android:orientation="horizontal"
@@ -289,7 +289,7 @@
     <LinearLayout
         android:id="@+id/lineaTesoro"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="130dp"
         android:background="#92EFEF"
         android:gravity="center"
         android:orientation="horizontal"
@@ -346,6 +346,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Volver al juego"
+        android:onClick="volverAlJuego"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
