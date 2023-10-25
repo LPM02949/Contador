@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Contador</string>
+    <string name="saludo">Bienvenido a esta aplicación</string>
+    <string name="lista_colaboradores">Nuestros colaboradores</string>
+</resources>
