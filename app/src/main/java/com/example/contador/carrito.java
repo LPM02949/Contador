@@ -2,22 +2,15 @@ package com.example.contador;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.math.BigInteger;
 import java.text.DecimalFormat;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-public class Carrito extends AppCompatActivity {
+public class carrito extends AppCompatActivity {
     int num;
     int inc = 0;
     int incAuto = 0;
@@ -34,17 +27,17 @@ public class Carrito extends AppCompatActivity {
     TextView textValorAutoClick;
     TextView textVelocidadAutoClick;
     TextView textMonedasContador;
-    /*TextView textContBilletes;
+    TextView textContBilletes;
     TextView textContOro;
     TextView textContPlata;
-    TextView textContTesoro;*/
+    TextView textContTesoro;
     private Button botonMejora1, botonMejora2, botonMejora3, botonMejora4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrito);
-        textMonedasContador = (TextView) findViewById(R.id.textMonedasContador);
+        textMonedasContador = findViewById(R.id.textMonedasContador);
         botonMejora1 = findViewById(R.id.boton_billetes);
         botonMejora2 = findViewById(R.id.boton_oro);
         botonMejora3 = findViewById(R.id.boton_plata);
@@ -56,11 +49,14 @@ public class Carrito extends AppCompatActivity {
             incAuto = extras.getInt("AUTOCLICK_VALUE");
             tiempoAutoClick = extras.getInt("AUTOCLICK_TIME");
         }
-        textValorClick=(TextView)findViewById(R.id.textValorClick);
-        textValorAutoClick=(TextView) findViewById(R.id.textValorAutoClick);
-        textVelocidadAutoClick=(TextView) findViewById(R.id.textVelocidadAutoClick);
-        textMonedasContador=(TextView) findViewById(R.id.textMonedasContador);
-        //textContBilletes=(TextView) findViewById(R.id.textContBilletes);
+        textValorClick= findViewById(R.id.textValorClick);
+        textValorAutoClick= findViewById(R.id.textValorAutoClick);
+        textVelocidadAutoClick= findViewById(R.id.textVelocidadAutoClick);
+        textMonedasContador= findViewById(R.id.textMonedasContador);
+        textContBilletes= findViewById(R.id.textContBilletes);
+        textContOro= findViewById(R.id.textContOro);
+        textContPlata= findViewById(R.id.textContPlata);
+        textContTesoro= findViewById(R.id.textContTesoro);
         setContText();
     }
 
@@ -74,15 +70,17 @@ public class Carrito extends AppCompatActivity {
     }
 
     public void setContText() {
-        textValorClick.setText("Clicks: " + inc);
-        textValorAutoClick.setText("Autoclicks: " + incAuto);
-        textVelocidadAutoClick.setText("Velocidad: " + tiempoAutoClick + "m" + "s");
+        textValorClick.setText(getString(R.string.clicks_text, inc));
+        textValorAutoClick.setText(getString(R.string.autoclicks_text, incAuto));
+        textVelocidadAutoClick.setText(getString(R.string.velocidad_text, tiempoAutoClick));
 
-        textMonedasContador.setText(formatNumber(num));
+        textMonedasContador.setText(formatNumber(num)); // Asumo que formatNumber es una función personalizada
 
-        //textContBilletes.setText("Billetes: "+ contadorbilletes);
+        textContBilletes.setText(getString(R.string.billetes_text, contadorbilletes));
+        textContOro.setText(getString(R.string.oro_text, contadororo));
+        textContPlata.setText(getString(R.string.plata_text, contadorplata));
+        textContTesoro.setText(getString(R.string.tesoros_text, contadortesoro));
     }
-
     private String formatNumber(int value) {
         if (value < 1000) {
             return String.valueOf(value);
@@ -111,8 +109,8 @@ public class Carrito extends AppCompatActivity {
             contadorbilletes++;
             updateCounter();
             costeBillete += 20;
-            botonMejora1.setText("Comprar por " + costeBillete + " coins");
-            //textContBilletes.setText("Billetes: " + contadorbilletes);
+            botonMejora1.setText(getString(R.string.comprar_por_text, costeBillete));
+            textContBilletes.setText(getString(R.string.billetes_text, contadorbilletes));
         }
     }
     public void mejora2(View v) {
@@ -121,8 +119,9 @@ public class Carrito extends AppCompatActivity {
             inc += 5;
             contadororo++;
             updateCounter();
-            costeOro += 200;
-            botonMejora2.setText("Comprar por " + costeOro + " coins");
+            costeOro += 100;
+            botonMejora2.setText(getString(R.string.comprar_por_text, costeOro));
+            textContOro.setText(getString(R.string.oro_text, contadororo));
         }
     }
 
@@ -133,7 +132,8 @@ public class Carrito extends AppCompatActivity {
             contadorplata++;
             updateCounter();
             costePlata += 100;
-            botonMejora3.setText("Comprar por " + costePlata + " coins");
+            botonMejora3.setText(getString(R.string.comprar_por_text, costePlata));
+            textContPlata.setText(getString(R.string.plata_text, contadorplata));
             incAuto++;
         }
     }
@@ -144,7 +144,8 @@ public class Carrito extends AppCompatActivity {
             contadortesoro++;
             updateCounter();
             costeTesoro += 200;
-            botonMejora4.setText("Comprar por " + costeTesoro + " coins");
+            botonMejora4.setText(getString(R.string.comprar_por_text, costeTesoro));
+            textContTesoro.setText(getString(R.string.tesoros_text, contadortesoro));
             tiempoAutoClick-=100;
         }
     }

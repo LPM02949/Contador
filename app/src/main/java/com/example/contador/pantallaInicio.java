@@ -1,18 +1,16 @@
 package com.example.contador;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class PantallaInicio extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
+public class pantallaInicio extends AppCompatActivity {
     static final String THEME_PREFERENCES = "theme_preferences";
     static final String THEME_KEY = "theme_key";
     private static final String MUSIC_PREFERENCE = "music_preference";
@@ -69,13 +67,6 @@ public class PantallaInicio extends AppCompatActivity {
     }
 
 
-
-    // Método para guardar la elección del tema (no se está utilizando en el código proporcionado)
-    private void saveThemeChoice(String themeKey) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        prefs.edit().putString("theme_key", themeKey).apply();
-    }
-
     // Lógica para iniciar el juego
     public void iniciarJuego(View view) {
         Intent intent = new Intent(this, MainActivity.class);
@@ -89,7 +80,7 @@ public class PantallaInicio extends AppCompatActivity {
 
     // Lógica para mostrar la pantalla de información
     public void mostrarInfo(View view) {
-        Intent intent = new Intent(this, Info.class);
+        Intent intent = new Intent(this, iInfo.class);
         startActivity(intent);
     }
     public void irMiscelanea(View view) {

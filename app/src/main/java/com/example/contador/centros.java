@@ -1,22 +1,33 @@
 package com.example.contador;
 
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.InputType;
+import android.view.ContextMenu;
+import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class centros extends AppCompatActivity {
+
+    private List<Centro> listaCentros;
+    private centrosAdapter adapter;
+    private int itemPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,61 +35,59 @@ public class centros extends AppCompatActivity {
         setContentView(R.layout.activity_centros);
 
         ImageView atrasImage = findViewById(R.id.atras);
-        atrasImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                atras();
-            }
-        });
+        atrasImage.setOnClickListener(view -> atras());
 
         RecyclerView rw = findViewById(R.id.recyclerView2);
         rw.setHasFixedSize(true);
         rw.setLayoutManager(new LinearLayoutManager(this));
 
-        List<Centro> c = Arrays.asList(
-                new Centro("Of. Madrid", "Pso. Castellana, 2. Madrid", R.drawable.madrid, "09:00 - 19:00"),
-                new Centro("Of. Asturias", "Calle Uria, 23. Oviedo", R.drawable.oviedo, "10:00 - 18:00"),
-                new Centro("Of. Galicia", "Pso Riazor, 102. Coruña", R.drawable.coruna, "09:30 - 20:00")
-        );
+        listaCentros = new ArrayList<>(Arrays.asList(
+                new Centro("Of. Madrid", "Pso. Castellana, 2. Madrid", R.drawable.madrid),
+                new Centro("Of. Asturias", "Calle Uria, 23. Oviedo", R.drawable.oviedo),
+                new Centro("Of. Galicia", "Pso Riazor, 102. Coruña", R.drawable.coruna)
+        ));
 
-
-        centrosAdapter adapter = new centrosAdapter(c, new OnCentroClickListener() {
-            @Override
-            public void onCentroClick(Centro centro) {
-                // Inflar el layout personalizado
-                View layout = LayoutInflater.from(centros.this).inflate(R.layout.custom_toast, null);
-                TextView text = layout.findViewById(R.id.custom_toast_text);
-                text.setText("Horario: " + centro.getHorario());
-
-                // Crear y mostrar el Toast personalizado
-                Toast toast = new Toast(getApplicationContext());
-                toast.setDuration(Toast.LENGTH_LONG);
-                toast.setView(layout);
-                toast.show();
-            }
-        });
-
-
-
+        adapter = new centrosAdapter(listaCentros);
         rw.setAdapter(adapter);
     }
 
     private void atras() {
-        Intent intent = new Intent(this, Info.class);
+        Intent intent = new Intent(this, iInfo.class);
         startActivity(intent);
     }
 
-    public class Centro {
-        private final String nombre;
-        private final String direccion;
-        private final int imagen;
-        private final String horario;
 
-        public Centro(String nombre, String direccion, int imagen, String horario) {
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        if (itemPosition == -1) {
+            return super.onContextItemSelected(item);
+        }
+
+        if (item.getItemId() == R.id.opListaEditar) {
+            // Editar la dirección del centro
+            mostrarDialogoEditarDireccion(itemPosition);
+            return true;
+        } else if (item.getItemId() == R.id.opListaEliminar) {
+            // Eliminar el centro
+            listaCentros.remove(itemPosition);
+            adapter.notifyItemRemoved(itemPosition);
+            adapter.notifyItemRangeChanged(itemPosition,listaCentros.size());
+            return true;
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
+
+    public static class Centro {
+        private final String nombre;
+        private String direccion;
+        private final int imagen;
+
+        public Centro(String nombre, String direccion, int imagen) {
             this.nombre = nombre;
             this.direccion = direccion;
             this.imagen = imagen;
-            this.horario=horario;
         }
 
         public String getNombre() {
@@ -89,21 +98,21 @@ public class centros extends AppCompatActivity {
             return direccion;
         }
 
+        public void setDireccion(String direccion) {
+            this.direccion = direccion;
+        }
+
         public int getImagen() {
             return imagen;
         }
-        public String getHorario(){
-            return horario;
-        }
+
     }
 
     public class centrosAdapter extends RecyclerView.Adapter<centrosAdapter.ViewHolder> {
-        private List<Centro> centros;
-        private OnCentroClickListener listener;
+        private final List<Centro> centros;
 
-        public centrosAdapter(List<Centro> centros, OnCentroClickListener listener) {
+        public centrosAdapter(List<Centro> centros) {
             this.centros = centros;
-            this.listener = listener;
         }
 
         @NonNull
@@ -123,7 +132,7 @@ public class centros extends AppCompatActivity {
             return centros.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder {
+        class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
             TextView nombre;
             TextView direccion;
             ImageView imagen;
@@ -134,15 +143,7 @@ public class centros extends AppCompatActivity {
                 direccion = itemView.findViewById(R.id.dirtextView);
                 imagen = itemView.findViewById(R.id.imageView);
 
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.onCentroClick(centros.get(position));
-                        }
-                    }
-                });
+                itemView.setOnCreateContextMenuListener(this);
             }
 
             void bind(Centro centro) {
@@ -150,6 +151,36 @@ public class centros extends AppCompatActivity {
                 direccion.setText(centro.getDireccion());
                 imagen.setImageResource(centro.getImagen());
             }
+
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+                itemPosition = getAdapterPosition();
+                MenuInflater inflater = new MenuInflater(v.getContext());
+                inflater.inflate(R.menu.menu_contextual, menu);
+            }
         }
     }
+    private void mostrarDialogoEditarDireccion(int position) {
+        Centro centro = listaCentros.get(position);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Editar Dirección");
+
+        // Configurar el EditText
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setText(centro.getDireccion());
+        builder.setView(input);
+
+        // Configurar los botones
+        builder.setPositiveButton("Guardar", (dialog, which) -> {
+            String nuevaDireccion = input.getText().toString();
+            centro.setDireccion(nuevaDireccion);
+            adapter.notifyItemChanged(position);
+        });
+        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel());
+
+        builder.show();
+    }
+
 }

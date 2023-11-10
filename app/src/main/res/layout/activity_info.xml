@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Info">
+    tools:context=".iInfo">
 
     <ImageView
         android:id="@+id/atras"
@@ -15,7 +15,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.026"
-        app:srcCompat="@drawable/volver" />
+        app:srcCompat="@drawable/volver"
+        android:contentDescription="@string/imagen_atras"/>
 
     <Button
         android:id="@+id/irCentros"
@@ -23,7 +24,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:onClick="irCentros"
-        android:text="CENTROS"
+        android:text="@string/bot_centros"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/irConocenos"
         app:layout_constraintHorizontal_bias="0.487"
@@ -36,7 +37,7 @@
         style="@style/botones"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="CONOCENOS"
+        android:text="@string/bot_conocenos"
         android:onClick="irConocenos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

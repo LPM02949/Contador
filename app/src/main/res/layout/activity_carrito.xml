@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Carrito">
+    tools:context=".carrito">
 
     <LinearLayout
         android:id="@+id/datosJuego"
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="-"
+            android:text="@string/contadores"
             android:textAlignment="center"
             android:textSize="15sp" />
 
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="-"
+            android:text="@string/contadores"
             android:textAlignment="center"
             android:textSize="15sp" />
 
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="-"
+            android:text="@string/contadores"
             android:textAlignment="center"
             android:textSize="15sp" />
     </LinearLayout>
@@ -48,9 +48,10 @@
     <LinearLayout
         android:id="@+id/datosMonedas"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/datosMejoras"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/datosJuego">
@@ -60,15 +61,15 @@
             style="@style/texto1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Moneditas: " />
+            android:text="@string/moneditas" />
 
         <TextView
             android:id="@+id/textMonedasContador"
             style="@style/texto2"
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:text="-"
+            android:text="@string/contadores"
             android:textAlignment="center" />
 
     </LinearLayout>
@@ -91,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="-"
+            android:text="@string/contadores"
             android:textAlignment="center"
             android:textSize="15sp" />
 
@@ -100,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="-"
+            android:text="@string/contadores"
             android:textAlignment="center"
             android:textSize="15sp" />
 
@@ -109,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="-"
+            android:text="@string/contadores"
             android:textAlignment="center"
             android:textSize="15sp" />
 
@@ -118,242 +119,246 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="-"
+            android:text="@string/contadores"
             android:textAlignment="center"
             android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/lineaBilletes"
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:background="#92EFEF"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="10dp"
+        android:id="@+id/linearLayoutAcciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.219">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:padding="8dp"
-            android:src="@drawable/billetitos">
-
-        </ImageView>
+        app:layout_constraintTop_toBottomOf="@+id/datosMejoras">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:id="@+id/lineaBilletes"
+            style="@style/fondo_carrito"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.444"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.219">
 
-            <TextView
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:padding="8dp"
+                android:src="@drawable/billetitos"
+                android:contentDescription="@string/icon_billetes">
+
+            </ImageView>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Biletes"
-                android:textColor="#000"
-                android:textSize="25dp"
-                android:textStyle="bold">
+                android:orientation="vertical">
 
-            </TextView>
+                <TextView
+                    style="@style/texto1b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/billetes" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Aumenta +1 el valor de tus clicks"
-                android:textSize="18dp">
+                <TextView
+                    style="@style/texto4b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/textBilletes">
 
-            </TextView>
+                </TextView>
 
-            <Button
-                android:id="@+id/boton_billetes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="mejora1"
-                android:text="Comprar por 100 coins" />
+                <Button
+                    android:id="@+id/boton_billetes"
+                    style="@style/botones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="mejora1"
+                    android:text="@string/bot_billetes" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lineaOro"
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:background="#92EFEF"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.407"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.421">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:padding="8dp"
-            android:src="@drawable/oro">
-
-        </ImageView>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:id="@+id/lineaOro"
+            style="@style/fondo_carrito"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.407"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.421">
 
-            <TextView
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:padding="8dp"
+                android:src="@drawable/oro"
+                android:contentDescription="@string/icon_oro">
+
+            </ImageView>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Oro"
-                android:textColor="#000"
-                android:textSize="25dp"
-                android:textStyle="bold">
+                android:orientation="vertical">
 
-            </TextView>
+                <TextView
+                    style="@style/texto1b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/oro" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Aumenta +5 el valor de tus clicks"
-                android:textSize="18dp">
+                <TextView
+                    style="@style/texto4b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/textOro">
 
-            </TextView>
+                </TextView>
 
-            <Button
-                android:id="@+id/boton_oro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="mejora2"
-                android:text="Comprar por 250 coins" />
+                <Button
+                    android:id="@+id/boton_oro"
+                    style="@style/botones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="mejora2"
+                    android:text="@string/bot_oro" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lineaPlata"
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:background="#92EFEF"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.626">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:padding="8dp"
-            android:src="@drawable/plataok">
-
-        </ImageView>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:id="@+id/lineaPlata"
+            style="@style/fondo_carrito"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.444"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.626">
 
-            <TextView
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:padding="8dp"
+                android:src="@drawable/plataok"
+                android:contentDescription="@string/icon_plata">
+
+            </ImageView>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Plata"
-                android:textColor="#000"
-                android:textSize="25dp"
-                android:textStyle="bold">
+                android:orientation="vertical">
 
-            </TextView>
+                <TextView
+                    style="@style/texto1b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/plata" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Consigue tus clicks automáticos"
-                android:textSize="18dp">
+                <TextView
+                    style="@style/texto4b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/textPlata">
 
-            </TextView>
+                </TextView>
 
-            <Button
-                android:id="@+id/boton_plata"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="mejora3"
-                android:text="Comprar por 500 coins" />
+                <Button
+                    android:id="@+id/boton_plata"
+                    style="@style/botones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="mejora3"
+                    android:text="@string/bot_plata" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lineaTesoro"
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:background="#92EFEF"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.407"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.831">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:padding="8dp"
-            android:src="@drawable/tesoro">
-
-        </ImageView>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:id="@+id/lineaTesoro"
+            style="@style/fondo_carrito"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.407"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.831">
 
-            <TextView
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:padding="8dp"
+                android:src="@drawable/tesoro"
+                android:contentDescription="@string/icon_tesoro">
+
+            </ImageView>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tesoro"
-                android:textColor="#000"
-                android:textSize="25dp"
-                android:textStyle="bold">
+                android:orientation="vertical">
 
-            </TextView>
+                <TextView
+                    style="@style/texto1b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tesoro" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tus click automáticos mas rápido "
-                android:textSize="18dp">
+                <TextView
+                    style="@style/texto4b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/textTesoro">
 
-            </TextView>
+                </TextView>
 
-            <Button
-                android:id="@+id/boton_tesoro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="mejora4"
-                android:text="Comprar por 1000 coins" />
+                <Button
+                    android:id="@+id/boton_tesoro"
+                    style="@style/botones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="mejora4"
+                    android:text="@string/bot_tesoro" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
     <Button
         android:id="@+id/boton_volver_juego"
+        style="@style/botones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Volver al juego"
         android:onClick="volverAlJuego"
+        android:text="@string/bot_volver_juego"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.94" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutAcciones"
+        app:layout_constraintVertical_bias="0.44" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

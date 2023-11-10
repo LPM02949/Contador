@@ -2,8 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
         <item
             android:id="@+id/opListaEditar"
-            android:title="Editar" />
+            android:title="@string/bot_editar" />
         <item
             android:id="@+id/opListaEliminar"
-            android:title="Eliminar" />
+            android:title="@string/bot_eliminar" />
 </menu>
+

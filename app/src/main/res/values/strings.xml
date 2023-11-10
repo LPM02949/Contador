@@ -19,6 +19,43 @@
     <string name="correo">CORREO</string>
     <string name="mapa">GOOGLE MAPS</string>
     <string name="opciones">Todo correcto, pulsa ATRAS para volver</string>
+    <string name="moneditas">Moneditas: </string>
+    <string name="billetes">Billetes</string>
+    <string name="textBilletes">Aumenta +1 el valor de tus clicks</string>
+    <string name="bot_billetes">Comprar por 100 coins</string>
+    <string name="oro">Oro</string>
+    <string name="textOro">Aumenta +5 el valor de tus clicks</string>
+    <string name="bot_oro">Comprar por 250 coins</string>
+    <string name="plata">Plata</string>
+    <string name="textPlata">Consigue tus clicks automáticos</string>
+    <string name="bot_plata">Comprar por 500 coins</string>
+    <string name="tesoro">Tesoro</string>
+    <string name="textTesoro">Tus click automáticos mas rápido </string>
+    <string name="bot_tesoro">Comprar por 1000 coins</string>
+    <string name="bot_volver_juego">Volver al juego</string>
+    <string name="tit_dialog_op">Estás en el juego Moneditas</string>
+    <string name="bot_centros">CENTROS</string>
+    <string name="bot_conocenos">CONÓCENOS</string>
+    <string name="bot_editar">Editar</string>
+    <string name="bot_eliminar">Eliminar</string>
+    <string name="imagen_centro">imagen</string>
+    <string name="imagen_atras">botón de flecha atrás</string>
+    <string name="introducir_nombre">Introducir nombre</string>
+    <string name="contadores">-</string>
+    <string name="icon_billetes">Imagen de billetes</string>
+    <string name="icon_oro">Imagen de lingotes de oro</string>
+    <string name="icon_plata">Imagen de lingotes de plata</string>
+    <string name="icon_tesoro">Imagen de un cofre del tesoro</string>
+    <style name="bot_editar">Editar</style>
+    <style name="bot_eliminar">Eliminar</style>
+    <string name="clicks_text">Clicks: %1$d</string>
+    <string name="autoclicks_text">Autoclicks: %1$d</string>
+    <string name="velocidad_text">Velocidad: %1$dms</string>
+    <string name="billetes_text">Billetes: %1$d</string>
+    <string name="oro_text">Oro: %1$d</string>
+    <string name="plata_text">Plata: %1$d</string>
+    <string name="tesoros_text">Tesoros: %1$d</string>
+    <string name="comprar_por_text">Comprar por %1$d coins</string>
 
 
 </resources>

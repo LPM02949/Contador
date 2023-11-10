@@ -2,23 +2,15 @@ package com.example.contador;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.math.BigInteger;
 import java.text.DecimalFormat;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     TextView contador;
@@ -65,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     }
     // Método para volver a la pantalla de inicio (PantallaInicio)
     public void atras() {
-        Intent intent = new Intent(this, PantallaInicio.class);
+        Intent intent = new Intent(this, pantallaInicio.class);
         startActivity(intent);
     }
 
@@ -115,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void irACompras(View view) {
-        Intent i = new Intent(this, Carrito.class);
+        Intent i = new Intent(this, carrito.class);
         i.putExtra("MONEY_COUNT", num);
         i.putExtra("CLICK_VALUE", inc);
         i.putExtra("AUTOCLICK_VALUE", incAuto);

@@ -1,27 +1,41 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources>
     <style name="Tema_claro" parent="Theme.Material3.Light">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/pink</item>
         <item name="colorPrimaryDark">@color/darkpink</item>
-        <item name="colorAccent">@color/blue</item>
+        <item name="colorAccent">@color/purple</item>
     </style>
     <style name="botones" parent="TextAppearance.AppCompat.Button">
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="fondo_carrito">
+        <item name="android:background">@color/claro2</item>
+    </style>
     <style name="texto1" parent="TextAppearance.AppCompat.Body1">
         <item name="android:fontFamily">sans-serif-condensed-medium</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">40dp</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+    <style name="texto1b" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">30sp</item>
     </style>
     <style name="texto2" parent="TextAppearance.AppCompat.Body1">
         <item name="android:fontFamily">sans-serif-condensed-medium</item>
-        <item name="android:textSize">40dp</item>
+        <item name="android:textSize">40sp</item>
     </style>
     <style name="texto3" parent="TextAppearance.AppCompat.Body1">
         <item name="android:fontFamily">sans-serif-condensed-medium</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="texto4" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="texto4b" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
     <style name="backImage">
         <item name="srcCompat">@drawable/volver</item>
@@ -29,7 +43,6 @@
         <item name="android:layout_height">100dp</item>
         <item name="android:background">@color/white</item>
     </style>
-
 
     <style name="Theme.Contador" parent="Tema_claro" />
 </resources>
