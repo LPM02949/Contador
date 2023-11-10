@@ -17,14 +17,26 @@
         app:layout_constraintVertical_bias="0.400">
 
         <TextView
-            android:id="@+id/segundo_mensaje"
+            android:id="@+id/saludo"
+            style="@style/texto2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/saludo"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.321"></TextView>
+
+        <TextView
+            android:id="@+id/nombre_juego"
+            style="@style/texto1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:text="MONEDITAS"
+            android:text="@string/app_name"
             android:textAlignment="center"
-            android:textSize="40dp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +52,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.700">
+        app:layout_constraintVertical_bias="0.800">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,10 +61,11 @@
 
             <Button
                 android:id="@+id/boton_jugar"
+                style="@style/botones"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:onClick="iniciarJuego"
-                android:text="JUGAR"
+                android:text="@string/bot_jugar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -61,11 +74,12 @@
                 app:layout_constraintVertical_bias="0.593" />
 
             <Button
-                android:id="@+id/boton_salir"
+                android:id="@+id/boton_miscelanea"
+                style="@style/botones"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:onClick="salir"
-                android:text="SALIR"
+                android:onClick="irMiscelanea"
+                android:text="@string/bot_misc"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -81,9 +95,11 @@
 
             <Button
                 android:id="@+id/boton_opciones"
+                style="@style/botones"
                 android:layout_width="130dp"
                 android:layout_height="60dp"
-                android:text="OPCIONES"
+                android:text="@string/bot_opcs"
+                android:onClick="irOtros"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.301"
@@ -94,9 +110,10 @@
 
             <Button
                 android:id="@+id/boton_info"
+                style="@style/botones"
                 android:layout_width="130dp"
                 android:layout_height="60dp"
-                android:text="INFO"
+                android:text="@string/bot_info"
                 android:onClick="mostrarInfo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -107,22 +124,18 @@
                 android:layout_marginStart="5dp"/>
 
         </LinearLayout>
+        <Button
+            android:id="@+id/boton_salir"
+            style="@style/botones"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:onClick="salir"
+            android:text="@string/bot_salir"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.691" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/primer_mensaje"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:text="Bienvenido al juego"
-        android:textAlignment="center"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.321"></TextView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

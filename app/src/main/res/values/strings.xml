@@ -1,5 +1,24 @@
 <resources>
-    <string name="app_name">Contador</string>
-    <string name="saludo">Bienvenido a esta aplicación</string>
+    <string name="app_name">MONEDITAS</string>
+    <string name="saludo">Bienvenido al juego</string>
     <string name="lista_colaboradores">Nuestros colaboradores</string>
+    <string name="bot_jugar">JUGAR</string>
+    <string name="bot_misc">MISCELANEA</string>
+    <string name="bot_opcs">OPCIONES</string>
+    <string name="bot_info">INFO</string>
+    <string name="bot_salir">SALIR</string>
+    <string name="bot_nombre">Nombre</string>
+    <string name="bot_verificar">Verificar</string>
+    <string name="bot_aceptar">Aceptar</string>
+    <string name="bot_rechazar">Rechazar</string>
+    <string name="bot_pregunta">Hola %s ¿Eres jugador de Moneditas?</string>
+    <string name="bot_cosas">Otras cosas</string>
+    <string name="pagina">ABRIR PÁGINA WEB</string>
+    <string name="llamada">LLAMA POR TELÉFONO</string>
+    <string name="camara">CÁMARA DE FOTOS</string>
+    <string name="correo">CORREO</string>
+    <string name="mapa">GOOGLE MAPS</string>
+    <string name="opciones">Todo correcto, pulsa ATRAS para volver</string>
+
+
 </resources>

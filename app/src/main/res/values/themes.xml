@@ -1,9 +1,35 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Contador" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Tema_claro" parent="Theme.Material3.Light">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/pink</item>
+        <item name="colorPrimaryDark">@color/darkpink</item>
+        <item name="colorAccent">@color/blue</item>
+    </style>
+    <style name="botones" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="texto1" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">40dp</item>
+    </style>
+    <style name="texto2" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textSize">40dp</item>
+    </style>
+    <style name="texto3" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+    <style name="backImage">
+        <item name="srcCompat">@drawable/volver</item>
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:background">@color/white</item>
     </style>
 
-    <style name="Theme.Contador" parent="Base.Theme.Contador" />
+
+    <style name="Theme.Contador" parent="Tema_claro" />
 </resources>

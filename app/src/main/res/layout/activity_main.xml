@@ -77,8 +77,7 @@
 
     <ImageView
         android:id="@+id/atras"
-        android:layout_width="121dp"
-        android:layout_height="122dp"
+        style="@style/backImage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

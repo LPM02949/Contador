@@ -2,4 +2,23 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="blue">#0000FF</color>
+    <color name="green">#008000</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="orange">#FFA500</color>
+    <color name="purple">#800080</color>
+    <color name="pink">#FFC0CB</color>
+    <color name="brown">#A52A2A</color>
+    <color name="gray">#808080</color>
+    <color name="claro1">#EDCBB4</color>
+    <color name="claro2">#F7E7CE</color>
+    <color name="claro3">#F4D8BE</color>
+    <color name="oscuro1">#00FA3B</color>
+    <color name="oscuro2">#F6FB3A</color>
+    <color name="oscuro3">#06CCF1</color>
+    <!-- Colores por defecto de la aplicación -->
+        <color name="colorPrimary">#3F51B5</color>
+        <color name="colorPrimaryDark">#303F9F</color>
+        <color name="darkpink">#FF4081</color>
 </resources>

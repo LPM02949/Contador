@@ -1,7 +1,10 @@
 package com.example.contador;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -22,17 +25,13 @@ public class MainActivity extends AppCompatActivity {
     int num = 999;
     int inc=1;
     int incAuto =0;
-    int tiempoAutoClick = 0;
+    int tiempoAutoClick = 1000;
     TextView textValorClick;
     TextView textValorAutoClick;
     TextView textVelocidadAutoClick;
-
-
-    
     ImageView coin_image;
-    
-    //private ExecutorService executor; // Para ejecutar la pulsación automática en segundo plano
-    //private Handler handler; // Para realizar operaciones en el hilo principal (UI Thread)
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
         contador = findViewById(R.id.textocontador);
         coin_image = findViewById(R.id.coin);
         contador.setText(formatNumber(num));
-        //executor = Executors.newSingleThreadExecutor(); // Inicializa el ExecutorService para tareas en segundo plano
-        //handler = new Handler(Looper.getMainLooper()); // Inicializa el Handler para operaciones en el hilo principal (UI Thread)
         ImageView atrasImage = findViewById(R.id.atras); // Obtén la referencia a la ImageView "atras"
         textValorClick=(TextView)findViewById(R.id.textValorClick);
         textValorAutoClick=(TextView) findViewById(R.id.textValorAutoClick);
@@ -53,28 +50,30 @@ public class MainActivity extends AppCompatActivity {
             inc = extras.getInt("CLICK_VALUE");
             incAuto = extras.getInt("AUTOCLICK_VALUE");
             tiempoAutoClick = extras.getInt("AUTOCLICK_TIME");
-
+        }
         // Agrega un click listener a la ImageView "atras"
         atrasImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 atras();
-            }
+            }});
 
 
-        });
-        };
         setContText();
+        sumarAuto();
+
     }
     // Método para volver a la pantalla de inicio (PantallaInicio)
     public void atras() {
         Intent intent = new Intent(this, PantallaInicio.class);
         startActivity(intent);
     }
+
     public void setContText() {
         textValorClick.setText("Clicks: " + inc);
         textValorAutoClick.setText("Autoclicks: " + incAuto);
-        textVelocidadAutoClick.setText("Velocidad Autoclicks: " + tiempoAutoClick + "m" + "s");
+        textVelocidadAutoClick.setText("Velocidad: " + tiempoAutoClick + "m" + "s");
+        contador.setText(formatNumber(num));
     }
     // Método para dar formato al numero del contador
         private String formatNumber (int value) {
@@ -101,6 +100,19 @@ public class MainActivity extends AppCompatActivity {
         num += inc;
         updateCounter();
     }
+    public void sumarAuto() {
+        new Thread(() -> {
+            while (true) {
+                num += incAuto;
+                runOnUiThread(this::setContText);
+                try {
+                    Thread.sleep(tiempoAutoClick);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }).start();
+    }
 
     public void irACompras(View view) {
         Intent i = new Intent(this, Carrito.class);
@@ -109,9 +121,7 @@ public class MainActivity extends AppCompatActivity {
         i.putExtra("AUTOCLICK_VALUE", incAuto);
         i.putExtra("AUTOCLICK_TIME", tiempoAutoClick);
         startActivity(i);
-        finish();
     }
-
 
 }
 

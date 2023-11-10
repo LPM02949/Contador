@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mp1o1"
+        android:title="Tema Claro" />
+    <item
+        android:id="@+id/mp1o2"
+        android:title="Tema Oscuro" />
+    <item android:title="¿Música?">
+        <menu>
+            <item
+                android:id="@+id/mp1o3"
+                android:title="SI"/>
+            <item
+                android:id="@+id/mp1o4"
+                android:title="NO"/>
+        </menu>
+    </item>
+</menu>
