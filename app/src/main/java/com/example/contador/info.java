@@ -24,17 +24,17 @@ public class info extends AppCompatActivity {
     }
 
     public void irCentros(View view) {
-        // Crear un Intent para abrir la actividad MainActivity
+        // Crear un Intent para abrir la actividad centros
         Intent intent = new Intent(this, centros.class);
         startActivity(intent);
     }
     public void irConocenos(View view) {
-        // Crear un Intent para abrir la actividad MainActivity
+        // Crear un Intent para abrir la actividad conocer
         Intent intent = new Intent(this, conocer.class);
         startActivity(intent);
     }
     public void irConocenos2(View view) {
-        // Crear un Intent para abrir la actividad MainActivity
+        // Crear un Intent para abrir la actividad mejorada de conocer que se adapta al tema
         Intent intent = new Intent(this, conocer2.class);
         startActivity(intent);
     }

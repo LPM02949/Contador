@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private void recuperarDatos() {
         SharedPreferences prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
 
-        num = prefs.getInt("MONEY_COUNT", 999);
+        num = prefs.getInt("MONEY_COUNT", 999999999);
         inc = prefs.getInt("CLICK_VALUE", 1);
         incAuto = prefs.getInt("AUTOCLICK_VALUE", 0);
         tiempoAutoClick = prefs.getInt("AUTOCLICK_TIME", 1000);
