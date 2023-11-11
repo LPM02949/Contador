@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".iInfo">
+    tools:context=".info">
 
     <ImageView
         android:id="@+id/atras"
@@ -18,30 +18,50 @@
         app:srcCompat="@drawable/volver"
         android:contentDescription="@string/imagen_atras"/>
 
-    <Button
-        android:id="@+id/irCentros"
-        style="@style/botones"
-        android:layout_width="150dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="irCentros"
-        android:text="@string/bot_centros"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/irConocenos"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="@+id/irConocenos"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.642" />
-
-    <Button
-        android:id="@+id/irConocenos"
-        style="@style/botones"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="@string/bot_conocenos"
-        android:onClick="irConocenos"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/atras"
+        app:layout_constraintVertical_bias="0.304">
 
+        <Button
+            android:id="@+id/irConocenos"
+            style="@style/botones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="irConocenos"
+            android:text="@string/bot_conocenos"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/irConocenos2"
+            style="@style/botones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:onClick="irConocenos2"
+            android:text="@string/bot_conocenos2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/irConocenos" />
+
+        <Button
+            android:id="@+id/irCentros"
+            style="@style/botones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:onClick="irCentros"
+            android:text="@string/bot_centros"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/irConocenos2" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

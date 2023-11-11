@@ -13,7 +13,8 @@
         android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/foto_colab"/>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -27,11 +28,13 @@
         <TextView
             android:id="@+id/nombreTextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            style="@style/cuerpoLista"/>
         <TextView
             android:id="@+id/cargoTextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            style="@style/cuerpoLista"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 

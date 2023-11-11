@@ -1,8 +1,5 @@
 <resources>
-    <!-- Base application theme. -->
     <style name="Tema_Oscuro" parent="Theme.Material3.Dark">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/oscuro1</item>
         <item name="colorPrimaryDark">@color/oscuro2</item>
         <item name="colorAccent">@color/oscuro3</item>
@@ -15,6 +12,17 @@
     </style>
     <style name="fondo_carrito">
         <item name="android:background">@color/oscuro2</item>
+    </style>
+    <style name="cabeceraLista" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:background">@color/oscuro1</item>
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="cuerpoLista" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:background">@color/oscuro2</item>
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
     <style name="botones" parent="TextAppearance.AppCompat.Button">
         <item name="android:textColor">@color/black</item>

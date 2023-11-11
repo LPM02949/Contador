@@ -3,6 +3,17 @@
         <item name="colorPrimary">@color/pink</item>
         <item name="colorPrimaryDark">@color/darkpink</item>
         <item name="colorAccent">@color/purple</item>
+
+    </style>
+    <style name="cabeceraLista" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:background">@color/darkpink</item>
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="cuerpoLista" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:background">@color/pink</item>
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:textSize">20sp</item>
     </style>
     <style name="botones" parent="TextAppearance.AppCompat.Button">
         <item name="android:textColor">@color/black</item>
@@ -43,6 +54,7 @@
         <item name="android:layout_height">100dp</item>
         <item name="android:background">@color/white</item>
     </style>
+
 
     <style name="Theme.Contador" parent="Tema_claro" />
 </resources>

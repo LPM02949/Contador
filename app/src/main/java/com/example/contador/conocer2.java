@@ -1,10 +1,9 @@
 package com.example.contador;
 
-
-import android.app.ListActivity;
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -14,21 +13,23 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class conocer extends ListActivity {
+public class conocer2 extends AppCompatActivity {
     private ColaboradoresAdapter adapter;
     private List<Colaborador> colaboradores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_conocer2);
 
-        setContentView(R.layout.activity_conocer);
+        ListView listView = findViewById(R.id.list);
         colaboradores = new ArrayList<>(Arrays.asList(
                 new Colaborador("Antonio Álvarez Fueyo", "CEO", R.drawable.antonio),
                 new Colaborador("Pedro Álvarez Naves", "Jefe Proyecto", R.drawable.pedro),
@@ -36,15 +37,15 @@ public class conocer extends ListActivity {
                 new Colaborador("Marcos Cordero Carbajal", "Ayudante Coordinador", R.drawable.marcos),
                 new Colaborador("Mónica Álvarez Fueyo", "Programador", R.drawable.monica),
                 new Colaborador("Vanesa Díaz Pombol", "Programador", R.drawable.vanesa),
-                new Colaborador("Marta Fueyo Ferreiro", "Programador", R.drawable.marta)));
+                new Colaborador("Marta Fueyo Ferreiro", "Programador", R.drawable.marta)
+                ));
         adapter = new ColaboradoresAdapter(this, R.layout.elementos_lista, colaboradores);
-        setListAdapter(adapter);
-        registerForContextMenu(getListView());
+        listView.setAdapter(adapter);
+        registerForContextMenu(listView);
 
         ImageView atrasImage = findViewById(R.id.atras);
         atrasImage.setOnClickListener(view -> atras());
     }
-
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -59,7 +60,7 @@ public class conocer extends ListActivity {
         if (item.getItemId() == R.id.opListaEditar) {
             // Editar el cargo del colaborador
             assert info != null;
-            Colaborador colaborador = adapter.getItem(info.position);
+            conocer2.Colaborador colaborador = adapter.getItem(info.position);
             if (colaborador != null) {
                 colaborador.editarCargo();
                 adapter.notifyDataSetChanged();
@@ -106,8 +107,8 @@ public class conocer extends ListActivity {
         }
 
     }
-    public static class ColaboradoresAdapter extends ArrayAdapter<Colaborador> {
-        public ColaboradoresAdapter(@NonNull Context context, int resource, @NonNull List<Colaborador> objects) {
+    public static class ColaboradoresAdapter extends ArrayAdapter<conocer2.Colaborador> {
+        public ColaboradoresAdapter(@NonNull Context context, int resource, @NonNull List<conocer2.Colaborador> objects) {
             super(context, resource, objects);
         }
 
@@ -115,7 +116,7 @@ public class conocer extends ListActivity {
         @Override
         public View getView(int position, View convertView, @NonNull ViewGroup parent) {
             // Obtener el colaborador para la posición actual
-            Colaborador col = getItem(position);
+            conocer2.Colaborador col = getItem(position);
 
             // Comprobar si la vista existente se está reutilizando, de lo contrario inflar la vista
             if (convertView == null) {

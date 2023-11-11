@@ -52,7 +52,7 @@ public class centros extends AppCompatActivity {
     }
 
     private void atras() {
-        Intent intent = new Intent(this, iInfo.class);
+        Intent intent = new Intent(this, info.class);
         startActivity(intent);
     }
 

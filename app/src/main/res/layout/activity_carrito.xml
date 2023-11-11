@@ -65,7 +65,12 @@
 
         <TextView
             android:id="@+id/textMonedasContador"
-            style="@style/texto2"
+            android:singleLine="true"
+            android:textSize="40sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="40sp"
+            app:autoSizeStepGranularity="2sp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"

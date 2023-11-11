@@ -46,8 +46,11 @@
     <string name="icon_oro">Imagen de lingotes de oro</string>
     <string name="icon_plata">Imagen de lingotes de plata</string>
     <string name="icon_tesoro">Imagen de un cofre del tesoro</string>
+
     <style name="bot_editar">Editar</style>
+
     <style name="bot_eliminar">Eliminar</style>
+
     <string name="clicks_text">Clicks: %1$d</string>
     <string name="autoclicks_text">Autoclicks: %1$d</string>
     <string name="velocidad_text">Velocidad: %1$dms</string>
@@ -56,6 +59,13 @@
     <string name="plata_text">Plata: %1$d</string>
     <string name="tesoros_text">Tesoros: %1$d</string>
     <string name="comprar_por_text">Comprar por %1$d coins</string>
+    <string name="bot_conocenos2">CONÓCENOS V2</string>
+    <string name="foto_colab">Foto de colaboradores</string>
+    <string name="velocidad_max">VelMax</string>
+    <string name="moneda">Moneda de oro</string>
+    <string name="carrito">Carrito de la compra</string>
+    <string name="valor">0</string>
+    <string name="restart">Reiniciar Juego</string>
 
 
 </resources>

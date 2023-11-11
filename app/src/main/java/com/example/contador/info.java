@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-public class iInfo extends AppCompatActivity {
+public class info extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,11 @@ public class iInfo extends AppCompatActivity {
     public void irConocenos(View view) {
         // Crear un Intent para abrir la actividad MainActivity
         Intent intent = new Intent(this, conocer.class);
+        startActivity(intent);
+    }
+    public void irConocenos2(View view) {
+        // Crear un Intent para abrir la actividad MainActivity
+        Intent intent = new Intent(this, conocer2.class);
         startActivity(intent);
     }
 }

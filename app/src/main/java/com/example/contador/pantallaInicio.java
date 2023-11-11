@@ -80,7 +80,7 @@ public class pantallaInicio extends AppCompatActivity {
 
     // Lógica para mostrar la pantalla de información
     public void mostrarInfo(View view) {
-        Intent intent = new Intent(this, iInfo.class);
+        Intent intent = new Intent(this, info.class);
         startActivity(intent);
     }
     public void irMiscelanea(View view) {
