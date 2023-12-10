@@ -162,6 +162,11 @@ public class carrito extends AppCompatActivity {
             actualizarValoresCompra();
         }
     }
+
+    /**
+     *
+     * @param v
+     */
     public void mejora2(View v) {
         //igual que la anterior pero aumentando de 5 en 5
         if (num >= costeOro) {
@@ -213,6 +218,10 @@ public class carrito extends AppCompatActivity {
         }
     }
     // métodos para actualizar los textos del carrito al usar las mejoras
+
+    /**
+     *
+     */
     private void updateCounter() {
         textMonedasContador.setText(formatNumber(num));
     }

@@ -69,7 +69,7 @@ public class pantallaInicio extends AppCompatActivity {
 
     // Lógica para iniciar el juego
     public void iniciarJuego(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, InicioActivity.class);
         startActivity(intent);
     }
 
@@ -103,3 +103,4 @@ public class pantallaInicio extends AppCompatActivity {
         }
     }
 }
+

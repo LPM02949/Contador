@@ -66,6 +66,10 @@
     <string name="carrito">Carrito de la compra</string>
     <string name="valor">0</string>
     <string name="restart">Reiniciar Juego</string>
+    <string name="nombre_de_usuario">Usuario</string>
+    <string name="contraseña">Password</string>
+    <string name="botLogin">Login</string>
+    <string name="botRegistro">Registro</string>
 
 
 </resources>

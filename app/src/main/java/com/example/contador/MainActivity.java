@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         new Thread(() -> {
             while (true) {
                 num += incAuto;
-                runOnUiThread(this::setContText);
+                    runOnUiThread(this::setContText);
                 try {
                     Thread.sleep(tiempoAutoClick);
                 } catch (InterruptedException e) {
