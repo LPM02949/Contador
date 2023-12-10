@@ -17,7 +17,7 @@
         app:srcCompat="@drawable/volver" />
 
     <EditText
-        android:id="@+id/etNuevoNombreUsuario"
+        android:id="@+id/escribirNuevoUsuario"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/nombre_de_usuario"
@@ -30,12 +30,12 @@
         android:layout_marginEnd="16dp"/>
 
     <EditText
-        android:id="@+id/etNuevaContraseña"
+        android:id="@+id/escribirNuevaContraseña"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/contraseña"
         android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@id/etNuevoNombreUsuario"
+        app:layout_constraintTop_toBottomOf="@id/escribirNuevoUsuario"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
@@ -43,12 +43,12 @@
         android:layout_marginEnd="16dp"/>
 
     <Button
-        android:id="@+id/btnRegistro"
+        android:id="@+id/botonRegistro"
         style="@style/botones"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/botRegistro"
-        app:layout_constraintTop_toBottomOf="@id/etNuevaContraseña"
+        app:layout_constraintTop_toBottomOf="@id/escribirNuevaContraseña"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"

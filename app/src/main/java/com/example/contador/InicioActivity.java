@@ -14,8 +14,8 @@ public class InicioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
 
-        Button btnIrARegistro = findViewById(R.id.btnIrARegistro);
-        Button btnIrALogin = findViewById(R.id.btnIrALogin);
+        Button btnIrARegistro = findViewById(R.id.botonRegistro);
+        Button btnIrALogin = findViewById(R.id.botonLogin);
 
         btnIrARegistro.setOnClickListener(v -> {
             Intent intent = new Intent(InicioActivity.this, Registro.class);

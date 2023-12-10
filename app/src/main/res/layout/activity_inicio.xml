@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/atras"
         app:layout_constraintVertical_bias="0.304">
     <Button
-        android:id="@+id/btnIrARegistro"
+        android:id="@+id/botonRegistro"
         style="@style/botones"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,12 +40,12 @@
         android:layout_margin="16dp"/>
 
     <Button
-        android:id="@+id/btnIrALogin"
+        android:id="@+id/botonLogin"
         style="@style/botones"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Iniciar Sesión"
-        app:layout_constraintTop_toBottomOf="@id/btnIrARegistro"
+        app:layout_constraintTop_toBottomOf="@id/botonRegistro"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="0.1"
