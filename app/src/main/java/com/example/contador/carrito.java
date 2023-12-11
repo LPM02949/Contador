@@ -1,11 +1,16 @@
 package com.example.contador;
 
+import android.content.ContentValues;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,17 +22,20 @@ public class carrito extends AppCompatActivity {
 
         Referencio a string en todos los textos para facilitar la adaptación a
         diferentes idiomas   */
-    int num, inc = 0, incAuto = 0, tiempoAutoClick = 1000;
+    int num, inc = 0, incAuto = 0, tiempoAutoClick = 2000;
     int costeBillete = 100, costeOro = 250, costePlata = 500, costeTesoro = 1000;
     int contadorbilletes=0,contadororo = 0, contadorplata = 0, contadortesoro = 0;
     TextView textValorClick, textValorAutoClick, textVelocidadAutoClick;
     TextView textMonedasContador, textContBilletes, textContOro, textContPlata, textContTesoro;
     private Button botonMejora1, botonMejora2, botonMejora3, botonMejora4;
     private volatile boolean isRunning = true;//volatile para que sea visible inmediatamente en todos los hilos
+    private int idUsuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrito);
+        Intent intent = getIntent();
+        idUsuario = intent.getIntExtra("ID_USUARIO", -1);
 
         // Inicialización de los componentes de la interfaz
         textMonedasContador = findViewById(R.id.textMonedasContador);
@@ -44,7 +52,12 @@ public class carrito extends AppCompatActivity {
         textContTesoro = findViewById(R.id.textContTesoro);
 
         // Recuperación de datos guardados
-        recuperarDatos();
+        try {
+            recuperarDatos();
+        } catch (SQLiteException e) {
+            Toast.makeText(this, "Error al cargar los datos.", Toast.LENGTH_SHORT).show();
+            Log.e("DatabaseError", "Error al acceder a la base de datos", e);
+        }
 
         // Actualización de los textos en la interfaz
         actualizarTextoBotones();
@@ -72,49 +85,87 @@ public class carrito extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        isRunning = false; // Detiene el hilo cuando la actividad se destruye
+        isRunning = false; // Detiene el hilo
+        guardarDatosUsuario(); // Guardar datos en la base de datos
     }
 
+
+    // Método modificado para usar la base de datos
     private void recuperarDatos() {
-        SharedPreferences prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-        //recupero los datos de la aplicación y si no encuentra ninguno guardado usa los iniciales
-        num = prefs.getInt("MONEY_COUNT", 999);
-        inc = prefs.getInt("CLICK_VALUE", 1);
-        incAuto = prefs.getInt("AUTOCLICK_VALUE", 0);
-        tiempoAutoClick = prefs.getInt("AUTOCLICK_TIME", 1000);
-        costeBillete = prefs.getInt("COSTE_BILLETE", 100);
-        costeOro = prefs.getInt("COSTE_ORO", 250);
-        costePlata = prefs.getInt("COSTE_PLATA", 500);
-        costeTesoro = prefs.getInt("COSTE_TESORO", 1000);
-        contadorbilletes = prefs.getInt("CONT_BILLETES", 0);
-        contadororo = prefs.getInt("CONT_ORO", 0);
-        contadorplata = prefs.getInt("CONT_PLATA", 0);
-        contadortesoro = prefs.getInt("CONT_TESORO", 0);
-    }
-    private void guardarDatos() {
-        SharedPreferences prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        //guarda los datos de lo que hemos hecho en carrito
-        editor.putInt("MONEY_COUNT", num);
-        editor.putInt("CLICK_VALUE", inc);
-        editor.putInt("AUTOCLICK_VALUE", incAuto);
-        editor.putInt("AUTOCLICK_TIME", tiempoAutoClick);
-        editor.putInt("COSTE_BILLETE", costeBillete);
-        editor.putInt("COSTE_ORO", costeOro);
-        editor.putInt("COSTE_PLATA", costePlata);
-        editor.putInt("COSTE_TESORO", costeTesoro);
-        editor.putInt("CONT_BILLETES", contadorbilletes);
-        editor.putInt("CONT_ORO", contadororo);
-        editor.putInt("CONT_PLATA", contadorplata);
-        editor.putInt("CONT_TESORO", contadortesoro);
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor =null;
+        try{
+        cursor = db.query(DatabaseHelper.TABLE_DATOS_JUEGO,
+                new String[]{"moneyCount", "clickValue", "autoClickValue", "autoClickTime", "costeBillete", "costeOro", "costePlata", "costeTesoro", "contBilletes", "contOro", "contPlata", "contTesoro"},
+                "idUsuario = ?", new String[]{String.valueOf(idUsuario)}, null, null, null);
 
-        editor.apply();
+        if (cursor != null && cursor.moveToFirst()) {
+            int moneyCountIndex = cursor.getColumnIndex("moneyCount");
+            int clickValueIndex = cursor.getColumnIndex("clickValue");
+            int autoClickValueIndex = cursor.getColumnIndex("autoClickValue");
+            int autoClickTimeIndex = cursor.getColumnIndex("autoClickTime");
+            int costeBilleteIndex = cursor.getColumnIndex("costeBillete");
+            int costeOroIndex = cursor.getColumnIndex("costeOro");
+            int costePlataIndex = cursor.getColumnIndex("costePlata");
+            int costeTesoroIndex = cursor.getColumnIndex("costeTesoro");
+            int contBilletesIndex = cursor.getColumnIndex("contBilletes");
+            int contOroIndex = cursor.getColumnIndex("contOro");
+            int contPlataIndex = cursor.getColumnIndex("contPlata");
+            int contTesoroIndex = cursor.getColumnIndex("contTesoro");
+
+            if (moneyCountIndex != -1) num = cursor.getInt(moneyCountIndex);
+            if (clickValueIndex != -1) inc = cursor.getInt(clickValueIndex);
+            if (autoClickValueIndex != -1) incAuto = cursor.getInt(autoClickValueIndex);
+            if (autoClickTimeIndex != -1) tiempoAutoClick = cursor.getInt(autoClickTimeIndex);
+            if (costeBilleteIndex != -1) costeBillete = cursor.getInt(costeBilleteIndex);
+            if (costeOroIndex != -1) costeOro = cursor.getInt(costeOroIndex);
+            if (costePlataIndex != -1) costePlata = cursor.getInt(costePlataIndex);
+            if (costeTesoroIndex != -1) costeTesoro = cursor.getInt(costeTesoroIndex);
+            if (contBilletesIndex != -1) contadorbilletes = cursor.getInt(contBilletesIndex);
+            if (contOroIndex != -1) contadororo = cursor.getInt(contOroIndex);
+            if (contPlataIndex != -1) contadorplata = cursor.getInt(contPlataIndex);
+            if (contTesoroIndex != -1) contadortesoro = cursor.getInt(contTesoroIndex);
+            setContText();
+        }
+        } catch (SQLiteException e) {
+                throw e;
+            } finally {
+                if (cursor != null && !cursor.isClosed()) {
+                    cursor.close();
+                }
+            }
+        }
+
+    private void guardarDatosUsuario() {
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("moneyCount", num);
+        values.put("clickValue", inc);
+        values.put("autoClickValue", incAuto);
+        values.put("autoClickTime", tiempoAutoClick);
+        values.put("costeBillete", costeBillete);
+        values.put("costeOro", costeOro);
+        values.put("costePlata", costePlata);
+        values.put("costeTesoro", costeTesoro);
+        values.put("contBilletes", contadorbilletes);
+        values.put("contOro", contadororo);
+        values.put("contPlata", contadorplata);
+        values.put("contTesoro", contadortesoro);
+        try {
+            db.update(DatabaseHelper.TABLE_DATOS_JUEGO, values, "idUsuario = ?", new String[]{String.valueOf(idUsuario)});
+        } catch (SQLiteException e) {
+            Toast.makeText(this, "Error al guardar los datos.", Toast.LENGTH_SHORT).show();
+            Log.e("DatabaseError", "Error al actualizar la base de datos", e);
+        }
     }
     public void volverAlJuego(View v) {
         //volver al juego
-        guardarDatos();
+        guardarDatosUsuario();
         Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
+        finish();
     }
     public void setContText() {
         //muestra los datos de la aplicación de los clicks, cuantos en auto, velocidad y el contador
@@ -163,10 +214,7 @@ public class carrito extends AppCompatActivity {
         }
     }
 
-    /**
-     *
-     * @param v
-     */
+
     public void mejora2(View v) {
         //igual que la anterior pero aumentando de 5 en 5
         if (num >= costeOro) {
@@ -219,9 +267,7 @@ public class carrito extends AppCompatActivity {
     }
     // métodos para actualizar los textos del carrito al usar las mejoras
 
-    /**
-     *
-     */
+
     private void updateCounter() {
         textMonedasContador.setText(formatNumber(num));
     }

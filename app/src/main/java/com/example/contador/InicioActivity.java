@@ -27,7 +27,7 @@ public class InicioActivity extends AppCompatActivity {
             startActivity(intent);
         });
         ImageView atrasImage = findViewById(R.id.atras);
-        // Establece un listener para el evento de clic para volver a la pantalla de inicio
+
         atrasImage.setOnClickListener(view -> atras());
     }
     private void atras() {

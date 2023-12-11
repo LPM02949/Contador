@@ -1,34 +1,38 @@
 package com.example.contador;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.ContentValues;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Paint;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
     TextView contador;
-    int num = 999, inc = 1, incAuto = 0, tiempoAutoClick = 1000;
+    int num = 0, inc = 1, incAuto = 0, tiempoAutoClick = 2000;
     int costeBillete = 100, costeOro = 250, costePlata = 500, costeTesoro = 1000;
     int contadorbilletes = 0, contadororo = 0, contadorplata = 0, contadortesoro = 0;
     TextView textValorClick, textValorAutoClick, textVelocidadAutoClick;
     ImageView coin_image;
+    private int idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        // Obtiene el ID del usuario
+        idUsuario = getIntent().getIntExtra("ID_USUARIO", -1);
         // Inicialización de componentes
         contador = findViewById(R.id.textocontador);
         coin_image = findViewById(R.id.coin);
@@ -36,71 +40,48 @@ public class MainActivity extends AppCompatActivity {
         textValorAutoClick = findViewById(R.id.textValorAutoClick);
         textVelocidadAutoClick = findViewById(R.id.textVelocidadAutoClick);
         ImageView atrasImage = findViewById(R.id.atras);
-
-        // Recuperar datos guardados
-        recuperarDatos();
-
-        // Listeners
+        if (textValorClick != null) {
+            textValorClick.setText("Tu texto aquí");
+        } else {
+            // Manejo del caso donde textView es null
+            Log.e("MainActivity", "TextView no encontrado");
+        }
+        // Configurar listeners y UI
         atrasImage.setOnClickListener(view -> atras());
         setContText();
         sumarAuto();
+        // Intentar cargar los datos del usuario
+        try {
+            if (idUsuario != -1) {
+                cargarDatosUsuario();
+            }
+        } catch (SQLiteException e) {
+            Toast.makeText(this, "Error al cargar los datos del usuario.", Toast.LENGTH_SHORT).show();
+            Log.e("MainActivity", "Error al cargar datos de usuario", e);
+        }
     }
-
     @Override
     protected void onPause() {
         super.onPause();
-        guardarDatos();
+        if (idUsuario != -1) {
+            guardarDatosUsuario();
+        }
+
     }
-
-    private void guardarDatos() {
-        SharedPreferences prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-
-        editor.putInt("MONEY_COUNT", num);
-        editor.putInt("CLICK_VALUE", inc);
-        editor.putInt("AUTOCLICK_VALUE", incAuto);
-        editor.putInt("AUTOCLICK_TIME", tiempoAutoClick);
-        editor.putInt("COSTE_BILLETE", costeBillete);
-        editor.putInt("COSTE_ORO", costeOro);
-        editor.putInt("COSTE_PLATA", costePlata);
-        editor.putInt("COSTE_TESORO", costeTesoro);
-        editor.putInt("CONT_BILLETES", contadorbilletes);
-        editor.putInt("CONT_ORO", contadororo);
-        editor.putInt("CONT_PLATA", contadorplata);
-        editor.putInt("CONT_TESORO", contadortesoro);
-
-        editor.apply();
-    }
-
-
-    private void recuperarDatos() {
-        SharedPreferences prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-
-        num = prefs.getInt("MONEY_COUNT", 999999999);
-        inc = prefs.getInt("CLICK_VALUE", 1);
-        incAuto = prefs.getInt("AUTOCLICK_VALUE", 0);
-        tiempoAutoClick = prefs.getInt("AUTOCLICK_TIME", 1000);
-        costeBillete = prefs.getInt("COSTE_BILLETE", 100);
-        costeOro = prefs.getInt("COSTE_ORO", 250);
-        costePlata = prefs.getInt("COSTE_PLATA", 500);
-        costeTesoro = prefs.getInt("COSTE_TESORO", 1000);
-        contadorbilletes = prefs.getInt("CONT_BILLETES", 0);
-        contadororo = prefs.getInt("CONT_ORO", 0);
-        contadorplata = prefs.getInt("CONT_PLATA", 0);
-        contadortesoro = prefs.getInt("CONT_TESORO", 0);
-    }
-
-
     private void atras() {
         Intent intent = new Intent(this, pantallaInicio.class);
         startActivity(intent);
     }
 
     public void setContText() {
-        textValorClick.setText(getString(R.string.clicks_text, inc));
-        textValorAutoClick.setText(getString(R.string.autoclicks_text, incAuto));
-        textVelocidadAutoClick.setText(getString(R.string.velocidad_text, tiempoAutoClick));
-        contador.setText(formatNumber(num));
+        if (textValorClick != null && textValorAutoClick != null && textVelocidadAutoClick != null && contador != null) {
+            textValorClick.setText(getString(R.string.clicks_text, inc));
+            textValorAutoClick.setText(getString(R.string.autoclicks_text, incAuto));
+            textVelocidadAutoClick.setText(getString(R.string.velocidad_text, tiempoAutoClick));
+            contador.setText(formatNumber(num));
+        } else {
+            Log.e("MainActivity", "Algun TextView es null");
+        }
     }
 
     private String formatNumber(int value) {
@@ -117,8 +98,6 @@ public class MainActivity extends AppCompatActivity {
             return new DecimalFormat("0.00T").format(value / 1000000000000.0);
         }
     }
-
-
 
 
     public void sumar(View v) {
@@ -149,12 +128,12 @@ public class MainActivity extends AppCompatActivity {
         contador.setText(formatNumber(num));
     }
 
-    public void reiniciarJuego(View view) {
+    public void reiniciarJuego() {
         // Restablece los valores a sus valores iniciales
-        num = 999;
+        num = 0;
         inc = 1;
         incAuto = 0;
-        tiempoAutoClick = 1000;
+        tiempoAutoClick = 2000;
         costeBillete = 100;
         costeOro = 250;
         costePlata = 500;
@@ -165,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         contadortesoro = 0;
 
         // Guarda los valores restablecidos
-        guardarDatos();
+        guardarDatosUsuario();
 
         // Actualiza la interfaz de usuario
         setContText();
@@ -173,18 +152,81 @@ public class MainActivity extends AppCompatActivity {
     public void irACompras(View view) {
         //pasa los datos que tiene a la pantalla carrito
         Intent i = new Intent(this, carrito.class);
-        i.putExtra("MONEY_COUNT", num);
-        i.putExtra("CLICK_VALUE", inc);
-        i.putExtra("AUTOCLICK_VALUE", incAuto);
-        i.putExtra("AUTOCLICK_TIME", tiempoAutoClick);
-        i.putExtra("COSTE_BILLETE", costeBillete);
-        i.putExtra("COSTE_ORO", costeOro);
-        i.putExtra("COSTE_PLATA", costePlata);
-        i.putExtra("COSTE_TESORO", costeTesoro);
-        i.putExtra("CONT_BILLETES", contadorbilletes);
-        i.putExtra("CONT_ORO", contadororo);
-        i.putExtra("CONT_PLATA", contadorplata);
-        i.putExtra("CONT_TESORO", contadortesoro);
+        i.putExtra("ID_USUARIO", idUsuario);
         startActivity(i);
+    }
+    private void cargarDatosUsuario() {
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor=null;
+        try{
+            cursor = db.query(DatabaseHelper.TABLE_DATOS_JUEGO,
+                    new String[]{"moneyCount", "clickValue", "autoClickValue", "autoClickTime", "costeBillete", "costeOro", "costePlata", "costeTesoro", "contBilletes", "contOro", "contPlata", "contTesoro"},
+                    "idUsuario = ?",
+                    new String[]{String.valueOf(idUsuario)},
+                    null, null, null);
+
+
+        if (cursor != null && cursor.moveToFirst()) {
+            // Asignación de los valores a tus variables de juego
+            num = cursor.getInt(cursor.getColumnIndex("moneyCount"));
+            inc = cursor.getInt(cursor.getColumnIndex("clickValue"));
+            incAuto = cursor.getInt(cursor.getColumnIndex("autoClickValue"));
+            tiempoAutoClick = cursor.getInt(cursor.getColumnIndex("autoClickTime"));
+            costeBillete = cursor.getInt(cursor.getColumnIndex("costeBillete"));
+            costeOro = cursor.getInt(cursor.getColumnIndex("costeOro"));
+            costePlata = cursor.getInt(cursor.getColumnIndex("costePlata"));
+            costeTesoro = cursor.getInt(cursor.getColumnIndex("costeTesoro"));
+            contadorbilletes = cursor.getInt(cursor.getColumnIndex("contBilletes"));
+            contadororo = cursor.getInt(cursor.getColumnIndex("contOro"));
+            contadorplata = cursor.getInt(cursor.getColumnIndex("contPlata"));
+            contadortesoro = cursor.getInt(cursor.getColumnIndex("contTesoro"));
+
+            // Actualizar la interfaz de usuario con estos datos
+            setContText();
+        }
+        } catch (SQLiteException e) {
+            Log.e("MainActivity", "Error al cargar datos de usuario", e);
+            // Opcional: Mostrar un mensaje al usuario, etc.
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+    }
+    private void guardarDatosUsuario() {
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("moneyCount", num);
+        values.put("clickValue", inc);
+        values.put("autoClickValue", incAuto);
+        values.put("autoClickTime", tiempoAutoClick);
+        values.put("costeBillete", costeBillete);
+        values.put("costeOro", costeOro);
+        values.put("costePlata", costePlata);
+        values.put("costeTesoro", costeTesoro);
+        values.put("contBilletes", contadorbilletes);
+        values.put("contOro", contadororo);
+        values.put("contPlata", contadorplata);
+        values.put("contTesoro", contadortesoro);
+
+        try {
+            db.update(DatabaseHelper.TABLE_DATOS_JUEGO, values, "idUsuario = ?", new String[]{String.valueOf(idUsuario)});
+        } catch (SQLiteException e) {
+            Toast.makeText(this, "Error al guardar los datos.", Toast.LENGTH_SHORT).show();
+            Log.e("DatabaseError", "Error al actualizar la base de datos", e);
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (idUsuario != -1) {
+            cargarDatosUsuario();
+        } else {
+            reiniciarJuego();
+        }
+        setContText();
     }
 }
